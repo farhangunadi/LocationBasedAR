@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- A-Frame itself -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+
+    <!-- Pure three.js code that the A-Frame components use for location-based AR -->
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
+
+    <!-- AR.js A-Frame components -->
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
+    <title>Location Based AR</title>
+</head>
+
+<body>
+    <script>
+        AFRAME.registerComponent('locationfinder', {
+            init: function() {
+                navigator.geolocation.getCurrentPosition(function(location) {
+                    console.log(location);
+                })
+            }
+        });
+    </script>
+    <a-scene embedded arjs="source:webcam;">
+        <a-camera gps-camera="simulateLatitude:-6.175428;simulateLongitude:106.827164;" rotation-reader></a-camera>
+        <a-text color="#e28743" value="Patung Dipenogoro" scale="15 15 15" look-at="[gps-camera]" align="center" gps-entity-place="latitude:-6.173305;longitude:106.827196;"></a-text>
+    </a-scene>
+</body>
+
+</html>
